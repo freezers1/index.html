@@ -328,50 +328,36 @@ function LPV(){const r=LPS.r,now=Date.now();if(!r)return{now,id:'demo',type:PVT,
  else if(r.phase==='done'&&now>=r.end){LPS.r=null;LPS.gid++;return LPV()}
  return Object.assign({now},r)}
 
-// ==========================================
-// ИГРЫ
-// ==========================================
 const G = {
     crash: {
         n: 'Crash', i: '🚀', d: 'Лови иксы до взрыва',
         f(el) {
             const real = !!API_URL; let st = null, off = 0, lg = 0, pd = 0, lp = null, ls = -1, lh = '', boom = 0;
             
-            // Новая детализированная ракета
-            const RK = `<svg viewBox="0 0 120 150" style="width: 100%; height: 100%;">
+            // Уменьшенная ракета
+            const RK = `<svg viewBox="0 0 100 120" style="width: 100%; height: 100%;">
                 <defs>
                     <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#e0e0e0" />
-                        <stop offset="50%" stop-color="#ffffff" />
-                        <stop offset="100%" stop-color="#a0a0a0" />
+                        <stop offset="0%" stop-color="#e0e0e0" /><stop offset="50%" stop-color="#ffffff" /><stop offset="100%" stop-color="#a0a0a0" />
                     </linearGradient>
                     <linearGradient id="rocketNose" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#ff4d4d" />
-                        <stop offset="100%" stop-color="#cc0000" />
+                        <stop offset="0%" stop-color="#ff4d4d" /><stop offset="100%" stop-color="#cc0000" />
                     </linearGradient>
                 </defs>
-                <g transform="rotate(45 60 75)">
-                    <!-- Сопло -->
-                    <path d="M45 100 L75 100 L85 120 L35 120 Z" fill="#333" />
-                    <!-- Пламя -->
+                <g transform="rotate(45 50 60)">
+                    <path d="M38 80 L62 80 L70 95 L30 95 Z" fill="#333" />
                     <g class="rocket-flame">
-                        <path d="M45 115 Q60 160 75 115 Q60 135 45 115 Z" fill="#ffcc00" />
-                        <path d="M52 115 Q60 145 68 115 Q60 125 52 115 Z" fill="#ff6600" />
-                        <path d="M56 115 Q60 130 64 115 Z" fill="#ffffff" />
+                        <path d="M38 90 Q50 130 62 90 Q50 105 38 90 Z" fill="#ffcc00" />
+                        <path d="M43 90 Q50 115 57 90 Q50 100 43 90 Z" fill="#ff6600" />
+                        <path d="M47 90 Q50 105 53 90 Z" fill="#ffffff" />
                     </g>
-                    <!-- Корпус -->
-                    <path d="M40 40 L80 40 L80 100 L40 100 Z" fill="url(#rocketBody)" />
-                    <!-- Нос -->
-                    <path d="M40 40 Q60 0 80 40 Z" fill="url(#rocketNose)" />
-                    <!-- Иллюминатор -->
-                    <circle cx="60" cy="60" r="12" fill="#1a1a1a" />
-                    <circle cx="60" cy="60" r="9" fill="#3399ff" />
-                    <circle cx="57" cy="57" r="3" fill="#ffffff" opacity="0.6" />
-                    <!-- Плавники -->
-                    <path d="M40 80 L15 110 L40 100 Z" fill="#cc0000" />
-                    <path d="M80 80 L105 110 L80 100 Z" fill="#cc0000" />
-                    <!-- Центральный плавник -->
-                    <path d="M60 100 L60 115 L55 115 Z" fill="#cc0000" />
+                    <path d="M35 30 L65 30 L65 80 L35 80 Z" fill="url(#rocketBody)" />
+                    <path d="M35 30 Q50 0 65 30 Z" fill="url(#rocketNose)" />
+                    <circle cx="50" cy="50" r="10" fill="#1a1a1a" />
+                    <circle cx="50" cy="50" r="7" fill="#3399ff" />
+                    <circle cx="48" cy="48" r="2" fill="#ffffff" opacity="0.6" />
+                    <path d="M35 65 L15 90 L35 80 Z" fill="#cc0000" />
+                    <path d="M65 65 L85 90 L65 80 Z" fill="#cc0000" />
                 </g>
             </svg>`;
 
@@ -381,7 +367,7 @@ const G = {
                 <div class="cld c1"></div><div class="cld c2"></div><div class="cld c3"></div>
                 <svg class="mtn" id="mtn" viewBox="0 0 400 150" preserveAspectRatio="none"><path d="M0 150V80l50-45 60 55 60-70 70 80 60-50 100 60v45z" fill="#3b6ea8"/><path d="M0 150V110l70-30 90 40 80-45 90 50 70-25v50z" fill="#2c5486"/></svg>
                 <div class="om2" id="cm">…</div>
-                <div class="rk2" id="rk" style="top: 60%;">${RK}</div>
+                <div class="rk2" id="rk" style="position:absolute; left: 50%; bottom: 10%; width: 60px; height: 70px; margin-left: -30px; z-index: 2;">${RK}</div>
             </div>
             <div class="cb2"><div class="xp" id="xp">x1.00</div><div class="trk"><span>🦩</span><i id="tk"></i><span>🗽</span></div><button class="curb" id="cdd"></button></div>
             <div class="chb" id="chb"></div><button class="cb off" id="go">…</button><div class="plp"><div class="alien">👾</div><b id="pn2">Ожидание игроков</b><div class="plist" id="pl"></div></div>${real ? '' : '<p class="note">Демо: рядом играют боты. В Telegram здесь будут реальные игроки.</p>'}`;
@@ -411,12 +397,11 @@ const G = {
                 
                 $('#xp').textContent = 'x' + m.toFixed(2); $('#xp').className = 'xp' + (cr ? ' bad' : ''); $('#tk').style.setProperty('--w', Math.min(100, Math.log(m) / Math.log(20) * 100) + '%');
                 
-                // Эффект космоса (затемнение и звезды)
+                // Космос
                 const spaceOp = Math.min(0.9, (m - 1) / 10);
                 sky.style.setProperty('--sp', spaceOp);
                 if(stars) stars.style.opacity = Math.min(1, (m - 1) / 5);
                 
-                // Движение гор вниз
                 $('#mtn').style.transform = `translateY(${Math.min(200, (m - 1) * 40)}px)`;
                 
                 $('#cm').textContent = bt ? 'Приём ставок: ' + Math.ceil(sec) + ' с' : cr ? '💥 Взрыв на x' + s.cp.toFixed(2) : 'Ракета летит';
@@ -427,9 +412,9 @@ const G = {
                 } else { 
                     boom = 0; 
                     rk.style.display = 'block'; 
-                    // Плавный взлет ракеты с 60% до 10% высоты (до космоса)
-                    const yPos = fly ? Math.max(10, 60 - (m - 1) * 8) : 60; 
-                    rk.style.top = `${yPos}%`;
+                    // Взлет с самой земли наверх
+                    const yPos = fly ? Math.max(10, 10 + (m - 1) * 12) : 10; 
+                    rk.style.bottom = `${yPos}%`;
                     rk.style.transform = `translateX(${fly ? Math.sin(now / 200) * 5 : 0}px)`; 
                     const flame = rk.querySelector('.rocket-flame');
                     if(flame) flame.style.display = fly ? 'block' : 'none';
@@ -484,7 +469,7 @@ const G = {
                     a.setAttribute('stroke-dasharray', p * C + ' ' + C);
                     a.setAttribute('transform', `rotate(${90 - w / 2} 130 130)`);
                 }
-                const msg = !(bet >= 1) ? 'Введите сумму' : bet > S[cur] ? 'Недостаточно средств' : selectedNFT ? '' : 'Выберите NFT';
+                const msg = !selectedNFT ? 'Выберите NFT' : '';
                 const btn = $('#go');
                 if (btn) btn.className = 'play' + (msg ? ' off' : '');
             };
@@ -511,10 +496,6 @@ const G = {
                     </div>
                 </div>
 
-                <div class="bar">
-                    <div class="amt2"><span id="ci2">◈</span><input id="ib" type="number" inputmode="decimal" value="1" disabled><span id="cu">GRAM</span></div>
-                </div>
-                
                 <div class="bot">
                     <button class="play" id="go">Играть</button>
                     <button class="turbo" id="tb">+ Турбо</button>
@@ -776,8 +757,8 @@ const gen=n=>mk('hsl('+(NFT[n].length*47+NFT[n].charCodeAt(0)*13)%360+' 55% 45%)
 const fb=n=>NA[n]||gen(n);
 const tile = n => {
     n = n >= 0 ? n : 0;
-    // Используем wsrv.nl как прокси для обхода блокировки картинок
-    const imgUrl = `https://wsrv.nl/?url=nft.fragment.com/gift/${SL[n]}/thumb.webp`;
+    // Используем wsrv.nl как прокси для обхода блокировки картинок (medium.jpg надежнее)
+    const imgUrl = `https://wsrv.nl/?url=nft.fragment.com/gift/${SL[n]}-1.medium.jpg`;
     return `<div class="gf"><img src="${imgUrl}" loading="lazy" alt="" onerror="this.parentNode.innerHTML=fb(${n})"></div>`;
 };
 TB.cat=()=>`<input class="in" style="width:100%;margin-bottom:12px" placeholder="Поиск среди ${NFT.length} коллекций" oninput="cq(this.value)"><div class="ng" id="cg">${NFT.map((n,i)=>`<div data-n="${n.toLowerCase()}" onclick="colView(${i})">${tile(i)}${n}</div>`).join('')}</div>`;
