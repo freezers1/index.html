@@ -641,7 +641,7 @@ function eligible() {
     : [];
 }
 
-function render() {
+function upgraderRender() {
   $('inv').innerHTML = inventory.length
     ? inventory.map(x => `<button class="item ${sel.has(x.id) ? 'on' : ''}" data-id="${x.id}">${x.name}<small>${x.price} GRAM</small></button>`).join('')
     : '<small>Инвентарь пуст</small>';
@@ -667,7 +667,7 @@ $('inv').onclick = e => {
   const id = +b.dataset.id;
   if (sel.has(id)) sel.delete(id);
   else { if (sel.size >= 6) return alert('Не больше 6 предметов'); sel.add(id); }
-  render();
+  upgraderRender();
 };
 $('prizes').onclick = e => {
   const b = e.target.closest('[data-n]'); if (!b || busy) return;
@@ -679,7 +679,7 @@ $('chips').onclick = e => {
   want = +b.dataset.c;
   const list = eligible();
   if (list.length) prize = list.reduce((a, p) => Math.abs(p.c - want) < Math.abs(a.c - want) ? p : a);
-  render();
+  upgraderRender();
 };
 
 $('play').onclick = () => {
@@ -697,9 +697,8 @@ $('play').onclick = () => {
   setTimeout(() => {
     for (let i = inventory.length - 1; i >= 0; i--) if (sel.has(inventory[i].id)) inventory.splice(i, 1);
     if (win) inventory.push({id: Date.now(), name: won.name, price: won.price});
-    sel.clear(); prize = null; busy = false; render();
+    sel.clear(); prize = null; busy = false; upgraderRender();
     alert(win ? `Вы выиграли ${won.name}!` : 'Не повезло: ставка сгорела');
   }, 4100);
 };
-render();
 </script></body></html>
