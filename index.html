@@ -671,7 +671,7 @@ $('inv').onclick = e => {
 };
 $('prizes').onclick = e => {
   const b = e.target.closest('[data-n]'); if (!b || busy) return;
-  prize = eligible().find(p => p.name === b.dataset.n); render();
+  prize = eligible().find(p => p.name === b.dataset.n); upgraderRender();
 };
 // фиксированные кнопки: выбирают приз, ближайший по шансу к 5/10/25/50/75%
 $('chips').onclick = e => {
