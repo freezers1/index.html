@@ -612,4 +612,94 @@ var TC=null;try{if(API_URL&&window.TON_CONNECT_UI){TC=new TON_CONNECT_UI.TonConn
 (function(){const el=document.createElement('div');el.id='bgn';document.body.prepend(el);
  [[0,-5,5,-18,96],[1,76,3,14,84],[5,-6,32,10,76],[2,82,36,-12,90],[3,0,62,16,88],[4,78,68,-8,80],[1,32,88,12,72],[5,62,92,-14,66]].forEach(([n,x,y,r,z])=>{const d=document.createElement('div');d.className='bn';d.style.cssText=`left:${x}%;top:${y}%;width:${z}px;height:${z}px;transform:rotate(${r}deg)`;d.innerHTML=tile(n);el.append(d)})})();
 {const gq=new URLSearchParams(location.search).get('g');if(gq&&/^[0-9a-f]{6}$/.test(gq)){PVPG=gq;go('games');document.querySelector('.gc[data-g="pvp"]').click()}} // приглашение друга в PvP
+const EDGE = 95, MIN = 2, MAX = 75;            // шанс = ставка ÷ цена приза × 95, допустимо 2–75%
+// цены в GRAM — подставь свои данные (инвентарь игрока и каталог призов)
+const inventory = [
+  {id: 1, name: 'Lol Pop',    price: 5.5},
+  {id: 2, name: 'Pool Float', price: 5.7},
+  {id: 3, name: 'Top Hat',    price: 16.4},
+];
+const catalog = [
+  {name: 'Xmas Stocking',  price: 4.9}, {name: 'Whip Cupcake', price: 5.1},
+  {name: 'Instant Ramen',  price: 5.3}, {name: 'Crystal Ball', price: 13.7},
+  {name: 'Mad Pumpkin',    price: 16},   {name: 'Khabib’s Papakha', price: 26.7},
+  {name: 'Vintage Cigar',  price: 39},   {name: 'Sharp Tongue', price: 48.8},
+  {name: 'Mini Oscar',     price: 76},   {name: 'Heroic Helmet', price: 194},
+];
+const $ = id => document.getElementById(id);
+let sel = new Set(), prize = null, want = 25, busy = false, rot = 0;
+
+const stake    = () => [...sel].reduce((a, id) => a + inventory.find(x => x.id === id).price, 0);
+const chanceOf = p => stake() / p.price * EDGE;
+const zone     = c => c < 20 ? '#ff3d5e' : c < 38 ? '#ff8a3c' : c < 57 ? '#ffd23c' : '#35e07b';
+
+// главная идея: список призов зависит от выбранных NFT и пересчитывается при каждом клике
+function eligible() {
+  const s = stake();
+  return s > 0
+    ? catalog.map(p => ({...p, c: chanceOf(p)})).filter(p => p.c >= MIN && p.c <= MAX).sort((a, b) => a.price - b.price)
+    : [];
+}
+
+function render() {
+  $('inv').innerHTML = inventory.length
+    ? inventory.map(x => `<button class="item ${sel.has(x.id) ? 'on' : ''}" data-id="${x.id}">${x.name}<small>${x.price} GRAM</small></button>`).join('')
+    : '<small>Инвентарь пуст</small>';
+
+  const list = eligible();
+  if (prize && !list.some(p => p.name === prize.name)) prize = null;   // приз перестал подходить
+  $('prizes').innerHTML = !sel.size ? '<small>Выберите свои NFT</small>'
+    : list.length ? list.map(p => `<button class="item ${prize && prize.name === p.name ? 'on' : ''}" data-n="${p.name}">${p.name}<small>${p.price} GRAM · шанс ${p.c.toFixed(1)}%</small></button>`).join('')
+    : '<small>Для такой ставки призов нет</small>';
+
+  const c = prize ? chanceOf(prize) : 0, C = 2 * Math.PI * 108, arc = $('arc');
+  arc.setAttribute('stroke', zone(c));
+  arc.setAttribute('stroke-dasharray', `${c / 100 * C} ${C}`);
+  arc.setAttribute('transform', `rotate(${90 - c * 3.6 / 2} 130 130)`);   // дуга по центру снизу
+  $('ctr').textContent = prize ? prize.name : 'Выберите NFT и приз';
+  $('play').textContent = prize ? `ПРОКАЧАТЬ · ${c.toFixed(1)}%` : 'ПРОКАЧАТЬ';
+  $('play').disabled = !prize || busy;
+  document.querySelectorAll('#chips button').forEach(b => b.classList.toggle('on', !!prize && +b.dataset.c === want));
+}
+
+$('inv').onclick = e => {
+  const b = e.target.closest('[data-id]'); if (!b || busy) return;
+  const id = +b.dataset.id;
+  if (sel.has(id)) sel.delete(id);
+  else { if (sel.size >= 6) return alert('Не больше 6 предметов'); sel.add(id); }
+  render();
+};
+$('prizes').onclick = e => {
+  const b = e.target.closest('[data-n]'); if (!b || busy) return;
+  prize = eligible().find(p => p.name === b.dataset.n); render();
+};
+// фиксированные кнопки: выбирают приз, ближайший по шансу к 5/10/25/50/75%
+$('chips').onclick = e => {
+  const b = e.target.closest('button'); if (!b || busy) return;
+  want = +b.dataset.c;
+  const list = eligible();
+  if (list.length) prize = list.reduce((a, p) => Math.abs(p.c - want) < Math.abs(a.c - want) ? p : a);
+  render();
+};
+
+$('play').onclick = () => {
+  if (busy || !prize) return;
+  busy = true;
+  const c = chanceOf(prize), w = c * 3.6, win = Math.random() * 100 < c;   // в приложении результат считает сервер
+  // вращается стрелка; дуга неподвижна внизу (180°)
+  const th = win ? 180 + (Math.random() - .5) * w * .84
+                 : 180 + w / 2 + (360 - w) * (.04 + .92 * Math.random());
+  rot = (Math.floor(rot / 360) + 6) * 360 + th;
+  const ptr = $('ptr');
+  ptr.style.transition = 'transform 4s cubic-bezier(.12,.7,.1,1)';
+  ptr.style.transform = `rotate(${rot}deg)`;
+  const won = prize;
+  setTimeout(() => {
+    for (let i = inventory.length - 1; i >= 0; i--) if (sel.has(inventory[i].id)) inventory.splice(i, 1);
+    if (win) inventory.push({id: Date.now(), name: won.name, price: won.price});
+    sel.clear(); prize = null; busy = false; render();
+    alert(win ? `Вы выиграли ${won.name}!` : 'Не повезло: ставка сгорела');
+  }, 4100);
+};
+render();
 </script></body></html>
