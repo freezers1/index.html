@@ -192,7 +192,7 @@ nav button{font-size:11px}
   <div class="er"><span>1 000 просмотров</span><b>65 ★</b></div><div class="er"><span>5 000 просмотров</span><b>325 ★</b></div><div class="er"><span>10 000 просмотров</span><b>650 ★</b></div><div class="er"><span>100 000 просмотров</span><b>3 250 ★</b></div><div class="er"><span>1 000 000 просмотров</span><b>9 750 ★</b></div>
   <a class="btn" style="margin-top:12px" href="https://t.me/Wuxeek_support_bot" target="_blank" rel="noopener">🎥 Отправить видео в поддержку</a></div>
  <div class="card"><h3>👥 Рефералы</h3><p>Приглашай друзей и зарабатывай 10% с их комиссий.</p>
-  <ol class="el"><li>Скопируй или поделись персональной ссылкой из своего профиля в приложении</li><li>Друзья начинают играть по твоей ссылке и навсегда связаны с твоим аккаунтом</li><li>Ты получаешь 10% на свой баланс. Подробности в канале @wexuuke</li></ol>
+  <ol class="el"><li>Скопируй или поделись персональной ссылкой из своего профиля в приложении</li><li>Друзья начинают играть по твоей ссылке и навсегда связаны с твоим аккаунтом</li><li>Ты получаешь 10% на свой баланс. Подробности в канале @wuxeek</li></ol>
   <button class="btn" onclick="cp('https://t.me/'+BOT+'?start='+U.id)">Поделиться ссылкой</button></div>
  <a class="btn d" href="https://t.me/Wuxeek_support_bot" target="_blank" rel="noopener">Поддержка @Wuxeek_support_bot</a>
 </section>
@@ -275,7 +275,7 @@ const pq=async(p,b)=>{try{const r=await fetch(API_URL+p,{method:'POST',headers:{
 var PK=null,PT='',PVT='g',PVPG=null,PSEL=[],PRP={},PVS={type:'s'};
 let CASE_AT=0;try{CASE_AT=+localStorage.getItem('wx_case')||0}catch(e){}
 const CASEW=[[1,70],[2,12],[3,6],[4,4],[5,3],[7,2],[10,1.8],[15,1.2]],CASEV=[1,1,1,2,1,3,1,5,1,2,1,4,1,7,1,10,1,15];
-function caseTimer(){const el=$('#fct');if(!el)return;const left=CASE_AT+864e5-Date.now();el.textContent=left>0?'Следующий через '+[Math.floor(left/36e5),Math.floor(left%36e5/6e4),Math.floor(left%6e4/1e3)].map(x=>String(x).padStart(2,'0')).join(':'):'Открыть: от 1 до 15 ★ · нужна подписка на @wexuuke'}
+function caseTimer(){const el=$('#fct');if(!el)return;const left=CASE_AT+864e5-Date.now();el.textContent=left>0?'Следующий через '+[Math.floor(left/36e5),Math.floor(left%36e5/6e4),Math.floor(left%6e4/1e3)].map(x=>String(x).padStart(2,'0')).join(':'):'Открыть: от 1 до 15 ★ · нужна подписка на @wuxeek'}
 setInterval(caseTimer,1000);
 const CASE_CH='wexuuke';
 function caseGate(note){sheet(`<div class="grab"></div><h2 style="text-align:center">Бесплатный кейс</h2><p class="note" style="font-size:14px;margin:10px 0 14px">${note||'Чтобы открыть кейс, подпишитесь на наш канал. Проверка подписки проходит при открытии.'}</p><a class="btn" href="https://t.me/${CASE_CH}" target="_blank" rel="noopener">📣 Подписаться на @${CASE_CH}</a><button class="btn d" style="margin-top:10px" onclick="caseGo()">✅ Я подписался — открыть кейс</button>${API_URL?'':'<p class="note">Демо: проверка подписки работает в Telegram на сервере</p>'}`)}
