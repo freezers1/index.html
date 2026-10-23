@@ -150,6 +150,30 @@ nav .on{box-shadow:0 6px 20px #7c4dff88}
 .er{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #1b1e55}.er:last-of-type{border:0}.er b{color:#7cc8ff;text-align:right}.el{margin:6px 0 12px;padding-left:20px;color:var(--m);line-height:1.5}.el li{margin:5px 0}.card h3{margin:0 0 8px}.card>p{color:var(--m);margin-bottom:6px}
 .gth{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:14px}.gth h2{margin:0!important}.gi{width:30px;height:30px;border-radius:50%;border:1px solid var(--ln);background:#10153d;color:#aab6ff;font-weight:800;padding:0}
 nav button{font-size:11px}
+.up{max-width:420px;margin:auto;color:#fff;font-family:sans-serif}
+.wheel{position:relative;width:min(88vw,320px);aspect-ratio:1;margin:20px auto}
+.wheel svg{width:100%;height:100%;filter:drop-shadow(0 12px 14px #000a)}
+.trk{fill:none;stroke:#161b55;stroke-width:44}
+.arc{fill:none;stroke-width:44}
+.ptr{position:absolute;inset:0;z-index:2}
+.ptr i{position:absolute;left:50%;top:-4%;width:14%;margin-left:-7%;aspect-ratio:1.4/1;background:#fff;
+  clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 4px 5px #000c)}
+.ctr{position:absolute;inset:23%;border-radius:50%;display:grid;place-items:center;text-align:center;padding:8px;
+  font-weight:800;background:radial-gradient(#0d3a9a,#071238 75%);box-shadow:inset 0 10px 28px #000b,0 0 0 4px #090c30}
+.play{width:100%;padding:18px;border:0;border-radius:18px;font:800 19px sans-serif;color:#fff;
+  background:linear-gradient(135deg,#ff8a3c,#ff2d6f);box-shadow:0 10px 24px #ff2d6f66,inset 0 2px 0 #fff5}
+.play:disabled{opacity:.5}
+.chips{display:flex;gap:6px;margin:12px 0}
+.chips button{flex:1;padding:12px 0;border:1px solid #2a3170;border-radius:12px;color:#b4bfff;font-weight:800;
+  background:linear-gradient(#171c52,#0d1038);transform:skewX(-8deg);box-shadow:0 4px 8px #0008}
+.chips button.on{color:#fff;background:linear-gradient(135deg,#4f7cff,#8b5cff)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cols h4{font-size:12px;text-align:center;color:#9aa3e0;margin:0 0 8px}
+.list{display:grid;gap:6px;max-height:320px;overflow:auto;background:#0a0d2c;border-radius:16px;padding:8px}
+.item{display:block;width:100%;text-align:left;padding:8px;border:2px solid transparent;border-radius:12px;
+  background:#10153d;color:#fff;font:700 12px sans-serif}
+.item small{display:block;color:#9aa3e0;font-weight:600}
+.item.on{border-color:#7c8cff;box-shadow:0 0 12px #6a5cff77}
 </style></head><body>
 <header><div class="hl"><button class="hav" id="hav" onclick="go('prof')" aria-label="Профиль">W</button><div class="logo">WUXEEK</div><button class="sb" id="mt" onclick="mute()" aria-label="Звук">🔊</button></div><button class="pill" onclick="wal('in')"><img class="gm tl" alt="TON"><span id="bg">0</span><span style="color:#b79bff">★</span><span id="bs">0</span><b class="pl">+</b></button></header>
 
