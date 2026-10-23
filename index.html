@@ -61,7 +61,7 @@ nav button span{font-size:22px}nav .on{background:var(--gr);color:#fff}
 #tt{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:#fff;color:#12154a;padding:10px 16px;border-radius:14px;font-weight:600;z-index:999;max-width:90%;box-shadow: 0 4px 12px rgba(0,0,0,0.5);}
 .pg{animation:pg .3s ease}@keyframes pg{from{opacity:0;transform:translateY(8px)}}
 button{font-family:inherit;cursor:pointer;transition:transform .12s}button:active{transform:scale(.97)}
-.pill{color:#fff;display:inline-flex;align-items:center;gap:6px}.gm{width:20px;height:20px}.pl{background:var(--gr);border-radius:50%;width:20px;height:20px;display:grid;place-items:center;font-size:14px}
+.pill{color:#fff;display:inline-flex;align-items:center;gap:6px}.gm{width:20px;height:20px;object-fit:contain}.pl{background:var(--gr);border-radius:50%;width:20px;height:20px;display:grid;place-items:center;font-size:14px}
 .card:not(.hero){background:linear-gradient(180deg,#171a5acc,#10133fcc);box-shadow:0 10px 30px #0006}
 .hero{position:relative;overflow:hidden;box-shadow:0 14px 40px #5b4dff66}.hero::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:#ffffff22}.hero>*{position:relative;z-index:1}
 .row2 .btn{margin:0}h3{margin:4px 0 10px}
@@ -139,12 +139,6 @@ nav .on{box-shadow:0 6px 20px #7c4dff88}
 .sky{position:relative;height:380px;border-radius:24px;overflow:hidden;background:linear-gradient(#0b1a4a,#2b78d8 40%,#79c6ff);border:1px solid #232766;transition:background 0.5s ease}.sky::after{content:"";position:absolute;inset:0;background:#030618;opacity:var(--sp,0);pointer-events:none}
 .cld{position:absolute;width:150px;height:46px;border-radius:50px;background:radial-gradient(#fffbe8,#e9dcb0);opacity:.85;filter:blur(1px);animation:cl 14s linear infinite}.cld.c1{top:22%}.cld.c2{top:58%;width:200px;animation-duration:20s;animation-delay:-6s}.cld.c3{top:78%;animation-duration:26s;animation-delay:-12s}@keyframes cl{from{transform:translateX(-220px)}to{transform:translateX(560px)}}
 .mtn{position:absolute;left:0;right:0;bottom:0;width:100%;height:150px;transition:transform .2s linear}
-/* НОВАЯ АНИМАЦИЯ РАКЕТЫ В CRASH */
-.rocket-flame { animation: flicker 0.1s infinite alternate; transform-origin: 50% 0; }
-@keyframes flicker { 0% { transform: scaleY(0.8); opacity: 0.8; } 100% { transform: scaleY(1.2); opacity: 1; } }
-.stars-bg { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s; background-image: radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)); background-size: 100px 100px; z-index: 0; }
-/* ================================ */
-
 .om2{position:absolute;top:14px;left:0;right:0;text-align:center;font:800 20px Inter;color:#fff;text-shadow:0 2px 10px #0008;z-index:3}.fx{position:absolute;left:50%;top:40%;font-size:110px;margin:-55px 0 0 -55px;z-index:4;animation:bm .5s ease-out}@keyframes bm{from{transform:scale(.2);opacity:1}to{transform:scale(1.3);opacity:.9}}
 .cb2{display:flex;gap:8px;margin-top:12px}.xp{background:#10153d;border:1px solid #232766;border-radius:18px;padding:16px 20px;font:800 22px Inter;color:#7cc8ff;min-width:108px;text-align:center}.xp.bad{color:#ff6b81}.trk{flex:1;background:#10153d;border:1px solid #232766;border-radius:18px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:22px}.trk i{flex:1;height:5px;border-radius:3px;background:#ffffff18;margin:0 10px;position:relative;overflow:hidden}.trk i::before{content:"";position:absolute;inset:0;width:var(--w,0%);background:#7cc8ff}.curb{background:#10153d;border:1px solid #232766;border-radius:18px;padding:0 16px;color:#fff;font-size:20px}
 .chb{display:flex;gap:8px;margin-top:12px}.chb button{flex:1;border:0;border-radius:18px;padding:16px 4px;background:linear-gradient(#1f7be8,#0b5bc2);color:#fff;font:800 17px Inter;box-shadow:0 6px 18px #0b5bc255}.chb button.on{outline:2px solid #fff}.chb .pen{flex:0 0 56px;background:#10153d;border:1px solid #232766;box-shadow:none}.plp{margin-top:14px;background:#0a0b22;border:1px solid #1b1e55;border-radius:22px;padding:16px;text-align:center}.plp .alien{font-size:34px}
@@ -165,8 +159,14 @@ nav button{font-size:11px}
 .up-box { background: #0a0b22; border: 1px dashed #3b3fb8; border-radius: 16px; padding: 10px; text-align: center; min-height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 12px; color: var(--m); cursor: pointer; }
 .up-box .gf { width: 50px; height: 50px; margin: 0 auto 6px; }
 .up-arrow { font-size: 20px; color: var(--p); text-align: center; }
+
+/* НОВАЯ АНИМАЦИЯ РАКЕТЫ */
+.rocket-wrap { position: absolute; left: 50%; bottom: 10%; width: 80px; height: 100px; margin-left: -40px; z-index: 2; transition: bottom 0.1s linear; }
+.rocket-flame { animation: flicker 0.1s infinite alternate; transform-origin: 50% 0; }
+@keyframes flicker { 0% { transform: scaleY(0.8); opacity: 0.8; } 100% { transform: scaleY(1.2); opacity: 1; } }
+.stars-bg { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s; background-image: radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)); background-size: 100px 100px; z-index: 0; }
 </style></head><body>
-<header><div class="hl"><button class="hav" id="hav" onclick="go('prof')" aria-label="Профиль">W</button><div class="logo">WUXEEK</div><button class="sb" id="mt" onclick="mute()" aria-label="Звук">🔊</button></div><button class="pill" onclick="wal('in')"><img class="gm tl" alt="TON"><span id="bg">0</span><span style="color:#b79bff">⭐</span><span id="bs">0</span><b class="pl">+</b></button></header>
+<header><div class="hl"><button class="hav" id="hav" onclick="go('prof')" aria-label="Профиль">W</button><div class="logo">WUXEEK</div><button class="sb" id="mt" onclick="mute()" aria-label="Звук">🔊</button></div><button class="pill" onclick="wal('in')"><img class="gm tl" alt="TON" style="width:20px;height:20px"><span id="bg">0</span><span style="color:#b79bff">⭐</span><span id="bs">0</span><b class="pl">+</b></button></header>
 
 <section class="pg" id="home">
  <div class="card hero"><h1>Wuxeek</h1><p>Игры, иксы и NFT-подарки. Заходи в канал, чтобы не пропустить новости и розыгрыши.</p>
@@ -328,13 +328,18 @@ function LPV(){const r=LPS.r,now=Date.now();if(!r)return{now,id:'demo',type:PVT,
  else if(r.phase==='done'&&now>=r.end){LPS.r=null;LPS.gid++;return LPV()}
  return Object.assign({now},r)}
 
+// Цены NFT
+const PRICES = {
+ "Algorithm Cup": 2352.67, "Artisan Brick": 83.23, "Astral Shard": 132.25, "B-Day Candle": 5.49, "Berry Box": 11.21, "Big Year": 6.37, "Bling Binky": 92.31, "Bonded Ring": 71.1, "Bow Tie": 12.09, "Bunny Muffin": 18.13, "Candy Cane": 5.49, "Chill Flame": 5.69, "Clover Pin": 6.85, "Cookie Heart": 5.6, "Crystal Ball": 13.71, "Cupid Charm": 22.42, "Desk Calendar": 5.71, "Diamond Ring": 12.86, "Durov’s Cap": 468.27, "Durov’s Glasses": 109, "Easter Egg": 5.93, "Electric Skull": 31.98, "Eternal Candle": 5.93, "Eternal Rose": 25.6, "Evil Eye": 8.31, "Faith Amulet": 7.58, "Flying Broom": 15.49, "Fresh Socks": 6.7, "Gem Signet": 81.21, "Genie Lamp": 94.95, "Ginger Cookie": 5.49, "Hanging Star": 16.7, "Happy Brownie": 5.49, "Heart Locket": 1371.41, "Heroic Helmet": 194.12, "Hex Pot": 5.49, "Holiday Drink": 16.04, "Homemade Cake": 5.49, "Hypno Lollipop": 6.14, "Ice Cream": 5.77, "Input Key": 5.49, "Instant Ramen": 5.33, "Intelligence Cup": 2613.42, "Ion Gem": 82.86, "Ionic Dryer": 76.04, "Jack-in-the-Box": 5.93, "Jelly Bunny": 5.82, "Jester Hat": 6.48, "Jingle Bells": 10.99, "Jolly Chimp": 5.49, "Joyful Bundle": 41.1, "Khabib’s Papakha": 26.67, "Kissed Frog": 18.68, "Liberty Figure": 6.85, "Light Sword": 5.49, "Lol Pop": 5.49, "Loot Bag": 140.19, "Love Candle": 54.95, "Love Potion": 17.69, "Low Rider": 16.26, "Lunar Snake": 5.93, "Lush Bouquet": 18.46, "Mad Pumpkin": 15.95, "Magic Potion": 48.46, "Mighty Arm": 146.05, "Mini Oscar": 76.37, "Mirage Lamp": 6.74, "Money Pot": 10.0, "Mood Pack": 6.32, "Moon Pendant": 5.49, "Mousse Cake": 15.71, "Nail Bracelet": 116.48, "Neko Helmet": 32.64, "Party Sparkler": 5.93, "Perfume Bottle": 96.59, "Pet Snake": 7.14, "Plush Pepe": 7615.77, "Pool Float": 5.74, "Precious Peach": 283.69, "Pretty Posy": 23.85, "Rare Bird": 42.64, "Record Player": 21.65, "Resistance Dog": 784.08, "Restless Jar": 10.99, "Sakura Flower": 5.93, "Santa Hat": 7.14, "Scared Cat": 282.35, "Sharp Tongue": 48.79, "Signet Ring": 15.93, "Skull Flower": 13.41, "Sky Stilettos": 20.66, "Sleigh Bell": 35.27, "Snake Box": 9.12, "Snoop Cigar": 15.99, "Snoop Dogg": 6.85, "Snow Globe": 19.34, "Snow Mittens": 28.13, "Spiced Wine": 6.48, "Spring Basket": 6.59, "Spy Agaric": 5.49, "Star Notepad": 10.22, "Stellar Rocket": 5.49, "Surge Board": 114.29, "Swag Bag": 6.85, "Swiss Watch": 8.57, "Tama Gadget": 7.47, "Timeless Book": 14.73, "Top Hat": 16.37, "Toy Bear": 5.49, "Trapped Heart": 18.23, "UFC Strike": 16.63, "Valentine Box": 39.67, "Vice Cream": 5.66, "Victory Medal": 5.71, "Vintage Cigar": 39.22, "Voodoo Doll": 41.37, "Westside Sign": 24.73, "Whip Cupcake": 5.05, "Winter Wreath": 9.56, "Witch Hat": 5.49, "Xmas Stocking": 4.95
+};
+Object.assign(PRP, PRICES);
+
 const G = {
     crash: {
         n: 'Crash', i: '🚀', d: 'Лови иксы до взрыва',
         f(el) {
             const real = !!API_URL; let st = null, off = 0, lg = 0, pd = 0, lp = null, ls = -1, lh = '', boom = 0;
             
-            // Уменьшенная ракета
             const RK = `<svg viewBox="0 0 100 120" style="width: 100%; height: 100%;">
                 <defs>
                     <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -367,7 +372,7 @@ const G = {
                 <div class="cld c1"></div><div class="cld c2"></div><div class="cld c3"></div>
                 <svg class="mtn" id="mtn" viewBox="0 0 400 150" preserveAspectRatio="none"><path d="M0 150V80l50-45 60 55 60-70 70 80 60-50 100 60v45z" fill="#3b6ea8"/><path d="M0 150V110l70-30 90 40 80-45 90 50 70-25v50z" fill="#2c5486"/></svg>
                 <div class="om2" id="cm">…</div>
-                <div class="rk2" id="rk" style="position:absolute; left: 50%; bottom: 10%; width: 60px; height: 70px; margin-left: -30px; z-index: 2;">${RK}</div>
+                <div class="rocket-wrap" id="rk">${RK}</div>
             </div>
             <div class="cb2"><div class="xp" id="xp">x1.00</div><div class="trk"><span>🦩</span><i id="tk"></i><span>🗽</span></div><button class="curb" id="cdd"></button></div>
             <div class="chb" id="chb"></div><button class="cb off" id="go">…</button><div class="plp"><div class="alien">👾</div><b id="pn2">Ожидание игроков</b><div class="plist" id="pl"></div></div>${real ? '' : '<p class="note">Демо: рядом играют боты. В Telegram здесь будут реальные игроки.</p>'}`;
@@ -397,7 +402,6 @@ const G = {
                 
                 $('#xp').textContent = 'x' + m.toFixed(2); $('#xp').className = 'xp' + (cr ? ' bad' : ''); $('#tk').style.setProperty('--w', Math.min(100, Math.log(m) / Math.log(20) * 100) + '%');
                 
-                // Космос
                 const spaceOp = Math.min(0.9, (m - 1) / 10);
                 sky.style.setProperty('--sp', spaceOp);
                 if(stars) stars.style.opacity = Math.min(1, (m - 1) / 5);
@@ -412,8 +416,8 @@ const G = {
                 } else { 
                     boom = 0; 
                     rk.style.display = 'block'; 
-                    // Взлет с самой земли наверх
-                    const yPos = fly ? Math.max(10, 10 + (m - 1) * 12) : 10; 
+                    // Плавный подъем с 10% до 80%
+                    const yPos = fly ? Math.min(80, 10 + (m - 1) * 12) : 10; 
                     rk.style.bottom = `${yPos}%`;
                     rk.style.transform = `translateX(${fly ? Math.sin(now / 200) * 5 : 0}px)`; 
                     const flame = rk.querySelector('.rocket-flame');
@@ -524,12 +528,13 @@ const G = {
                 
                 $('#box-left').innerHTML = `${tile(nftIdx)} <b>${selectedNFT}</b>`;
                 
-                const basePrice = (window.PRP && PRP[nbase(selectedNFT)]) ? PRP[nbase(selectedNFT)] : 10;
+                // Используем реальные цены для расчета приза
+                const basePrice = PRICES[nbase(selectedNFT)] || 10;
                 const targetValue = (basePrice / (chance / 100)) * 0.95;
                 
                 let bestIdx = -1, minDiff = Infinity;
                 for (let i = 0; i < NFT.length; i++) {
-                    const price = (window.PRP && PRP[NFT[i]]) ? PRP[NFT[i]] : (i * 5 + 10);
+                    const price = PRICES[NFT[i]] || (i * 5 + 10);
                     const diff = Math.abs(price - targetValue);
                     if (diff < minDiff && i !== nftIdx) {
                         minDiff = diff;
